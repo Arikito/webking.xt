@@ -482,19 +482,21 @@ class Parser {
 			$link = $pre_parsed_html->find('.items-wrapper .item-good .title a');
 			$url = $base_url.$link[0]->attr['href'];
 		}
-		if($Products->SetFieldsByRewrite(G::StrToTrans($link[0]->plaintext))){
-			return false;
-		}
+		
 		unset($pre_parsed_html);
 		if($parsed_html = $this->parseUrl($url)){
 			// Получаем артикул товара
 			$product['sup_comment'] = trim($data[0]);
 			// Получаем название товара
 			$product['name'] = $parsed_html->find('main h1', 0)->plaintext;
+			if($Products->SetFieldsByRewrite(G::StrToTrans($product['name']))){
+				var_dump($product['name']);
+				return false;
+			}
 			// Получаем описание товара
 			$product['descr'] = $parsed_html->find('.detail_text .text_content', 0)->plaintext;
 			// Получаем цену товара
-			preg_match_all('/^\d+.\d+/', trim($parsed_html->find('.item_current_price', 0)->innertext), $price);
+			preg_match_all('/^\d+.\d+/', trim(str_replace(' ', '', $parsed_html->find('.item_current_price', 0)->innertext)), $price);
 			$product['price_opt_otpusk'] = $product['price_mopt_otpusk'] = floatval($price[0][0]);
 			// Получаем характеристики товара
 			foreach($parsed_html->find('.item_properties dl') as $element){
@@ -520,5 +522,27 @@ class Parser {
 			}
 		}
 		return $product;
+	}
+
+	public function nl_art($data){
+		global $art_categor_nl;
+
+		if($pre_parsed_html = $this->parseUrl($data[0])){
+			$link = $pre_parsed_html->find('.items-wrapper .item-good .title a');
+			$url = $base_url.$link[0]->attr['href'];
+		}
+		
+		unset($pre_parsed_html);
+		if($parsed_html = $this->parseUrl($url)){
+			foreach($parsed_html->find('.item_properties dl') as $element){
+				$caption = str_replace('Артикул', trim($element->children(0)->plaintext));
+				
+
+
+				
+			}
+			
+		}
+		return $art_categor_nl;
 	}
 }

@@ -253,3 +253,6 @@ cron/*
 temp/*
 
 xt.sublime-workspace
+~core/model/parser_c.php
+~core/model/parser_c.php
+*.php
