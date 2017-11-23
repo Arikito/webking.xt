@@ -521,4 +521,25 @@ class Parser {
 		}
 		return $product;
 	}
+	public function nl_art($data){
+		global $art_categor_nl;
+
+		if($pre_parsed_html = $this->parseUrl($data[0])){
+			$link = $pre_parsed_html->find('.items-wrapper .item-good .title a');
+			$url = $base_url.$link[0]->attr['href'];
+		}
+		
+		unset($pre_parsed_html);
+		if($parsed_html = $this->parseUrl($url)){
+			foreach($parsed_html->find('items-wrapper list') as $element){
+				$caption = str_replace('Артикул', trim($element->children(0)->plaintext));
+				
+
+
+				
+			}
+			
+		}
+		return $art_categor_nl;
+	}
 }
