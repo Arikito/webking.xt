@@ -157,29 +157,34 @@ class Parser {
 		$data[0] = trim($data[0]);
 		$data[1] = trim($data[1]);
 		$base_url = 'http://zamorskiepodarki.com';
-		$url = sprintf($base_url.'/shop/?searchPhrase=%s', $data[0]);
+		$url = sprintf($base_url.'/search/?search=%s', $data[0]);
+		print_r('<pre> url: '.$url.'</pre>');
 		if($pre_parsed_html = $this->parseUrl($url)){
-			$link = $pre_parsed_html->find('.goodName');
+			$link = $pre_parsed_html->find('row products .product-layout .product-block .product-block .name');
 			$url = $base_url.$link[0]->attr['href'];
 		}
-		if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
-			$data[1] = $data[1].' ('.$data[0].')';
-			if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
-				print_r('<pre>'.G::StrToTrans($data[1]).'</pre>');
-				print_r('<pre>Translit issue</pre>');
-				return false;
-			}
-		}
+		//if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
+			//$data[1] = $data[1].' ('.$data[0].')';
+			//if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
+			//	print_r('<pre>'.G::StrToTrans($data[1]).'</pre>');
+			//	print_r('<pre>Translit issue</pre>');
+			//	return false;
+			//}
+		//}
 		unset($pre_parsed_html);
 		if($parsed_html = $this->parseUrl($url)){
 			// Получаем артикул товара
 			$product['sup_comment'] = trim($data[0]);
+			print_r('<pre> Арт пос: '.$product['sup_comment'].'</pre>');
 			// Получаем название товара
-			$product['name'] = trim($data[1]);
+			//$product['name'] = trim($data[1]);
+			$product['name'] = $parsed_html->find('itemprop="name"', 0)->plaintext;
+			print_r('<pre> Название: '.$product['name'].'</pre>');
 			// Получаем описание товара
 			// $product['descr'] = $parsed_html->find('[itemprop="description"]', 0)->plaintext;
 			// Получаем цену товара
 			$product['price_opt_otpusk'] = $product['price_mopt_otpusk'] = trim($data[2]);
+			print_r('<pre> Цена: '.$product['price_opt_otpusk'].'</pre>');
 			// Получаем характеристики товара
 			// foreach($parsed_html->find('.fullDescriptionConteiner table .product__feature tr') as $element){
 			// 	$caption = str_replace(':', '', trim($element->children(0)->plaintext));
