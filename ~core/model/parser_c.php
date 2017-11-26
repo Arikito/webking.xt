@@ -194,8 +194,8 @@ class Parser {
 			// 		);
 			// 	}
 			// }
-			// Получаем изображения товара максимального размера
-			foreach($parsed_html->find('#bigLayout img') as $element){
+			// Получаем изображения товара максимального размера  products/30391B_2-1200x1200.jpg
+			foreach($parsed_html->find('thumbnail  cboxElement') as $element){
 				$filename = $base_url.$element->src;
 				if(strpos($filename, '.jpg')){
 					$img_info = array_merge(getimagesize($filename), pathinfo($filename));
