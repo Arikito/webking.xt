@@ -4950,6 +4950,19 @@ div[for="rating_block"] {
 	margin-top: 10px;
 }
 
+/* Контакты */
+.contakt {
+	position: relative;
+	background: #018b06;
+	padding: 5px;
+	margin-bottom: 10px;
+	text-align: center;
+	font-size: 3em;
+	line-height: 1em;
+	color: white;
+	justify-content: space-between;
+}
+
 /* Баннер реклама программы агента */
 .agent_banner {
 	position: relative;

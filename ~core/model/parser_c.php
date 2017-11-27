@@ -163,14 +163,14 @@ class Parser {
 			$link = $pre_parsed_html->find('row products .product-layout .product-block .product-block .name');
 			$url = $base_url.$link[0]->attr['href'];
 		}
-		//if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
-			//$data[1] = $data[1].' ('.$data[0].')';
-			//if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
-			//	print_r('<pre>'.G::StrToTrans($data[1]).'</pre>');
-			//	print_r('<pre>Translit issue</pre>');
-			//	return false;
-			//}
-		//}
+		if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
+			$data[1] = $data[1].' ('.$data[0].')';
+			if($Products->SetFieldsByRewrite(G::StrToTrans($data[1]))){
+				print_r('<pre>'.G::StrToTrans($data[1]).'</pre>');
+				print_r('<pre>Translit issue</pre>');
+				return false;
+			}
+		}
 		unset($pre_parsed_html);
 		if($parsed_html = $this->parseUrl($url)){
 			// Получаем артикул товара
