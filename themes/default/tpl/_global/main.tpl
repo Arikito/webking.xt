@@ -200,9 +200,9 @@
 			</div>
 		</section>
 	<?}?>
-		<section class="contakt"> 
+		<!-- <section class="contakt"> 
 			<p>Наши контакты:&nbsp;&nbsp;&nbsp; <strong> (050) 309-84-20 &nbsp;&nbsp;&nbsp; (067) 574-10-13 &nbsp;&nbsp;&nbsp; (063) 425-91-83 &nbsp;&nbsp;&nbsp; </strong> Мы работаем с 8:00 до 21:00.</p>
-		</section>
+		</section>-->
 	<section class="main<?=$GLOBALS['CurrentController'] == 'product'?' product_page':null?>">
 		<section class="center">
 			<?if($GLOBALS['CONFIG']['agent_banner'] !== ''){?>
